@@ -8,9 +8,11 @@ export interface IUser {
 export interface IUserDocument extends Document, IUser {
   //for user methods
   verifyPassword(password: string): boolean;
+  tokenGenerate(): string;
 }
 
 export interface IUserModel extends Model<IUserDocument> {
   // for statics functions
   build(user: IUser): IUserDocument;
+  tokenVerify(token: string): any;
 }

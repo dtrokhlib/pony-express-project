@@ -6,16 +6,23 @@ import {
   getEmailById,
   deleteEmail,
 } from '../controllers/email.controller';
+import { authRequired } from '../middleware/auth-required';
 import { upload } from '../middleware/uploader';
 import { emailValidator } from '../validators/email.validator';
 
 const router = Router();
 
-router.get('/', getEmails);
-router.post('/', upload.array('attachments'), emailValidator, createEmail);
+router.get('/', authRequired, getEmails);
+router.post(
+  '/',
+  authRequired,
+  upload.array('attachments'),
+  emailValidator,
+  createEmail
+);
 
-router.get('/:id', getEmailById);
-router.patch('/:id', updateEmail);
-router.delete('/:id', deleteEmail);
+router.get('/:id', authRequired, getEmailById);
+router.patch('/:id', authRequired, updateEmail);
+router.delete('/:id', authRequired, deleteEmail);
 
 export { router as emailRouter };

@@ -13,7 +13,9 @@ export const userRegister = async (req: Request, res: Response) => {
   const newUser = User.build({ username, password });
   await newUser.save();
 
-  res.status(201).send(newUser);
+  const token = await newUser.tokenGenerate();
+
+  res.status(201).send({ newUser, token });
 };
 
 export const userLogin = async (req: Request, res: Response) => {
@@ -25,11 +27,13 @@ export const userLogin = async (req: Request, res: Response) => {
   }
 
   const passwordValid = await user.verifyPassword(password);
-  if(!passwordValid) {
+  if (!passwordValid) {
     return res.status(400).send('Invalid credentials');
   }
 
-  res.send(user);
+  const token = await user.tokenGenerate();
+
+  res.send({ user, token });
 };
 
 export const getUsers = async (req: Request, res: Response) => {

@@ -5,8 +5,10 @@ import {
   IUserModel,
 } from './interfaces/user-model.interface';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const ROUNDS = Number(process.env.ROUNDS) || 4;
+const JWT_SECRET = process.env.JWT_SECRET || 'test-secret-test';
 
 const userSchema = new mongoose.Schema(
   {
@@ -45,8 +47,26 @@ userSchema.statics.build = function (user: IUser) {
   return new User(user);
 };
 
+userSchema.statics.tokenVerify = async function (token: string) {
+  try {
+    const payload = await jwt.verify(token, JWT_SECRET);
+    return payload;
+  } catch (error) {
+    return false;
+  }
+};
+
 userSchema.methods.verifyPassword = async function (password: string) {
   return await bcrypt.compare(password, this.password);
+};
+
+userSchema.methods.tokenGenerate = async function () {
+  const token = await jwt.sign(
+    { id: this.id, username: this.username },
+    JWT_SECRET
+  );
+
+  return token;
 };
 
 export const User = mongoose.model<IUserDocument, IUserModel>(
