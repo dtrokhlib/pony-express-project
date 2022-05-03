@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import { Router } from 'express';
 import {
   createEmail,
@@ -10,19 +9,12 @@ import {
 import { upload } from '../middleware/uploader';
 
 const router = Router();
-const jsonBodyParser = bodyParser.json();
-const urlBodyParser = bodyParser.urlencoded({ extended: true})
 
+router.get('/', getEmails);
+router.post('/', upload.array('attachments'), createEmail);
 
-router
-  .route('/')
-  .get(getEmails)
-  .post(urlBodyParser, jsonBodyParser, upload.array('attachments'), createEmail);
-
-router
-  .route('/:id')
-  .get(getEmailById)
-  .patch(urlBodyParser, jsonBodyParser, updateEmail)
-  .delete(deleteEmail);
+router.get('/:id', getEmailById);
+router.patch('/:id', updateEmail);
+router.delete('/:id', deleteEmail);
 
 export { router as emailRouter };

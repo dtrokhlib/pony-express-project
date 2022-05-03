@@ -1,49 +1,48 @@
 import { Request, Response } from 'express';
-import { NotFound } from '../errors/error-not-found';
 import { dataResponseFormat } from '../helpers/data-response-format';
-import { generateId } from '../helpers/generate-id';
-import { readBodyChunks } from '../helpers/read-body-chunks';
-
-import emails from '../local-storage/emails.json';
+import { Email } from '../models/email.model';
 
 export const getEmails = async (req: Request, res: Response) => {
+  const emails = await Email.find();
   const emailsFormattedData = await dataResponseFormat(req, emails);
   res.send(emailsFormattedData);
 };
 
-export const getEmailById = (req: Request, res: Response) => {
+export const getEmailById = async (req: Request, res: Response) => {
   const emailId = req.params.id;
-  const email = emails.filter((emailItem) => emailItem.id === emailId);
+  const email = await Email.findById(emailId);
 
-  if (!email.length) {
-    throw new NotFound('Email not found');
+  if (!email) {
+    return res.status(404).send('Not found');
+    // Error handler needs to be implemented since with async function
+    // default middleware for error handling cannot catch the error
+    // throw new NotFound('Email not found');
   }
 
-  return res.send(...email);
+  res.send(email);
 };
 
 export const createEmail = (req: Request, res: Response) => {
-  let attachments;
+  let attachments: any[] = [];
   if (req.files && Array.isArray(req.files)) {
     attachments = req.files.map((file) => `/uploads/${file.filename}`);
   }
 
-  let newEmail = { ...req.body, id: generateId(), attachments };
-
-  if (!Array.isArray(emails)) {
-    return res.status(500).send('Storage file email.json is corrupted');
-  }
-  emails.push(newEmail);
-  res.status(201).send({ status: 'OK', email: newEmail });
+  const email = Email.build({ ...req.body, userId: '3123133', attachments})
+ 
+  res.status(201).send({ status: 'OK' });
 };
 
-export const updateEmail = (req: Request, res: Response) => {
+export const updateEmail = async (req: Request, res: Response) => {
   const emailId = req.params.id;
 
-  let email = emails.find((email) => email.id === emailId);
+  const email = await Email.findById(emailId);
 
   if (!email) {
-    throw new NotFound('Email not found');
+    return res.status(404).send('Not found');
+    // Error handler needs to be implemented since with async function
+    // default middleware for error handling cannot catch the error
+    // throw new NotFound('Email not found');
   }
 
   Object.assign(email, req.body);
@@ -51,16 +50,17 @@ export const updateEmail = (req: Request, res: Response) => {
   res.send(email);
 };
 
-export const deleteEmail = (req: Request, res: Response) => {
+export const deleteEmail = async (req: Request, res: Response) => {
   const emailId = req.params.id;
 
-  const emailPosition = emails.findIndex((email) => email.id === emailId);
+  const email = await Email.findByIdAndRemove(emailId);
 
-  if (emailPosition === -1) {
-    throw new NotFound('Email not found');
+  if (!email) {
+    return res.status(404).send('Not found');
+    // Error handler needs to be implemented since with async function
+    // default middleware for error handling cannot catch the error
+    // throw new NotFound('Email not found');
   }
-
-  emails.splice(emailPosition, 1);
 
   res.sendStatus(204);
 };
