@@ -12,5 +12,5 @@ export interface IEmail {
 export interface IEmailDocument extends Document, IEmail {}
 
 export interface IEmailModel extends Model<IEmailDocument>{
-  build: (email: IEmail) => IEmailDocument;
+  build(email: IEmail): IEmailDocument;
 }

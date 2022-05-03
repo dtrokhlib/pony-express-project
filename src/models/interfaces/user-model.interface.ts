@@ -5,9 +5,12 @@ export interface IUser {
   password: string;
 }
 
-export interface IUserDocument extends Document, IUser {}
+export interface IUserDocument extends Document, IUser {
+  //for user methods
+  verifyPassword(password: string): boolean;
+}
 
 export interface IUserModel extends Model<IUserDocument> {
-  build: (user: IUser) => IUserDocument;
-  verifyPassword: (password: string) => boolean;
+  // for statics functions
+  build(user: IUser): IUserDocument;
 }
