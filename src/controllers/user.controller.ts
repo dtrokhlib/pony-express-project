@@ -15,7 +15,7 @@ export const userRegister = async (req: Request, res: Response) => {
 
   const token = await newUser.tokenGenerate();
 
-  res.status(201).send({ newUser, token });
+  res.status(201).send({ user: newUser, token });
 };
 
 export const userLogin = async (req: Request, res: Response) => {

@@ -63,7 +63,8 @@ userSchema.methods.verifyPassword = async function (password: string) {
 userSchema.methods.tokenGenerate = async function () {
   const token = await jwt.sign(
     { id: this.id, username: this.username },
-    JWT_SECRET
+    JWT_SECRET,
+    { expiresIn: '1h' }
   );
 
   return token;
