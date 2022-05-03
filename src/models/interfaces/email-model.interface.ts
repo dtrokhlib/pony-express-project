@@ -6,6 +6,7 @@ export interface IEmail {
   to: string;
   subject: string;
   body: string;
+  attachments?: string[]
 }
 
 export interface IEmailDocument extends Document, IEmail {}

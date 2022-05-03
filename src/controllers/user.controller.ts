@@ -10,15 +10,18 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 
 export const getUserById = async (req: Request, res: Response) => {
-  const { id: userId} = req.params;
+  const { id: userId } = req.params;
   const user = await User.findById(userId);
 
   if (!user) {
     return res.status(404).send('Not found');
-    // Error handler needs to be implemented since with async function
-    // default middleware for error handling cannot catch the error
-    // throw new NotFound('Email not found');
   }
 
   return res.send(user);
 };
+
+export const userRegister = async (req: Request, res: Response) => {
+  
+};
+
+export const userLogin = async (req: Request, res: Response) => {};
