@@ -8,7 +8,9 @@ export const userRegister = async (req: Request, res: Response) => {
 
   const user = await User.findOne({ username });
   if (user) {
-    return res.status(400).send(`User with username ${username} already exist`);
+    return res
+      .status(400)
+      .send({ message: 'User with this username already exist' });
   }
   const newUser = User.build({ username, password });
   await newUser.save();
@@ -23,12 +25,12 @@ export const userLogin = async (req: Request, res: Response) => {
 
   const user = await User.findOne({ username });
   if (!user) {
-    return res.status(400).send('Invalid credentials');
+    return res.status(400).send({ message: 'Invalid credentials' });
   }
 
   const passwordValid = await user.verifyPassword(password);
   if (!passwordValid) {
-    return res.status(400).send('Invalid credentials');
+    return res.status(400).send({ message: 'Invalid credentials' });
   }
 
   const token = await user.tokenGenerate();

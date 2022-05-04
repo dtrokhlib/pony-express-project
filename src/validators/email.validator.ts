@@ -2,7 +2,6 @@ import { validate } from 'class-validator';
 import { Request, Response, NextFunction } from 'express';
 import { EmailValidator } from './classes/email.classes';
 
-
 export const emailValidator = async (
   req: Request,
   res: Response,
@@ -16,7 +15,10 @@ export const emailValidator = async (
 
   const validationResults = await validate(email);
   if (validationResults.length > 0) {
-    return res.status(400).send(validationResults);
+    const message = validationResults.map((error) =>
+      Object.values(error.constraints!) 
+    );
+    return res.status(400).send({ message });
   }
 
   next();

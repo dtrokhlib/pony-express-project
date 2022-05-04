@@ -13,7 +13,10 @@ export const userValidator = async (
 
   const validationResults = await validate(user);
   if (validationResults.length > 0) {
-    return res.status(400).send(validationResults);
+    const message = validationResults.map((error) =>
+      Object.values(error.constraints!)
+    );
+    return res.status(400).send({ message });
   }
 
   next();
