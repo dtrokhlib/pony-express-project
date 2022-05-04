@@ -4,18 +4,17 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017';
 const PORT = Number(process.env.PORT) || 3000;
 
 const boot = () => {
-  mongoose.connect(MONGODB_URL, (err) => {
+  mongoose.connect(process.env.MONGODB_URL!, (err) => {
     if (err) {
       console.log(err);
     } else {
       console.log('MongoDB connected');
     }
   });
-  app.listen(3000, () => {
+  app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 };

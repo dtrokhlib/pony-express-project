@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pony-express-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pony-express-project
+  template:
+    metadata:
+      labels:
+        app: pony-express-project
+    spec:
+      containers:
+        - name: pony-express-project
+          image: kyouma337/pony-express-project
+          env:
+            - name: MONGODB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: pony-mongo-secrets
+                  key: mongodb_url
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: pony-mongo-secrets
+                  key: port
+            - name: ROUNDS
+              valueFrom:
+                secretKeyRef:
+                  name: pony-mongo-secrets
+                  key: rounds
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: pony-mongo-secrets
+                  key: jwt-secret                                               
+          resources:
+            limits:
+              memory: '1024Mi'
+              cpu: '1000m'
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pony-express-project-srv
+spec:
+  selector:
+    app: pony-express-project
+  ports:
+    - port: 3000
+      targetPort: 3000
+      name: pony-express-project
+      protocol: TCP

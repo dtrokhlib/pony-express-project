@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:     
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+    INGRESS.kubernetes.io/rewrite-target: /
+  labels:
+    name: ingress-service
+spec:
+  rules:
+    - host: pony-express-project.dev
+      http:
+        paths:
+          - pathType: Prefix
+            path: /?(.*)
+            backend:
+              service:
+                name: pony-express-project-srv
+                port:
+                  number: 3000
