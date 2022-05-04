@@ -7,8 +7,7 @@ import {
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const ROUNDS = Number(process.env.ROUNDS) || 4;
-const JWT_SECRET = process.env.JWT_SECRET || 'test-secret-test';
+
 
 const userSchema = new mongoose.Schema(
   {
@@ -35,12 +34,17 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre('save', async function (next) {
+  try {
   const user = this;
   if (!user.isModified('password')) {
     return next();
   }
-  const hash = await bcrypt.hash(this.password, ROUNDS);
+  const hash = await bcrypt.hash(this.password, Number(process.env.ROUNDS)!);
   user.password = hash;
+  } catch(err) {
+    console.log(err)
+  }
+
 });
 
 userSchema.statics.build = function (user: IUser) {
@@ -49,7 +53,7 @@ userSchema.statics.build = function (user: IUser) {
 
 userSchema.statics.tokenVerify = async function (token: string) {
   try {
-    const payload = await jwt.verify(token, JWT_SECRET);
+    const payload = await jwt.verify(token, process.env.JWT_SECRET!);
     return payload;
   } catch (error) {
     return false;
@@ -63,7 +67,7 @@ userSchema.methods.verifyPassword = async function (password: string) {
 userSchema.methods.tokenGenerate = async function () {
   const token = await jwt.sign(
     { id: this.id, username: this.username },
-    JWT_SECRET,
+    process.env.JWT_SECRET!,
     { expiresIn: '1h' }
   );
 
