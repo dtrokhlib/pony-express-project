@@ -1,18 +1,17 @@
 name: deploy-manifests
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'infra/**'
+  workflow_run:
+    workflows: ["deploy"]
+    types:
+      - completed
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: docker push kyouma337/pony-express-project
-      - uses: digitalocean/action-doctrl@v2
+      - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save pony-express-project
