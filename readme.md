@@ -8,6 +8,4 @@
 
 2. Learn regarding deployment and add CD part
 
-3. Add simple ui to project
-
-4. Refactoring and focusing on better project setup
+3. Refactoring and focusing on better project setup

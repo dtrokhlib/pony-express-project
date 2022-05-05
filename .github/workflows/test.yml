@@ -1,10 +1,16 @@
 name: test
 
-on:
-  pull_request
+on: pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: npm install && npm run test:ci
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+          NODEMAILER_USR: ${{ secrets.NODEMAILER_USR }}
+          NODEMAILER_PWD: ${{ secrets.NODEMAILER_PWD }}
+          ROUNDS: ${{ secrets.ROUNDS }}
+          PORT: ${{ secrets.PORT }}
