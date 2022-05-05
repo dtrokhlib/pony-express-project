@@ -48,8 +48,8 @@ spec:
                   key: pwd                  
           resources:
             limits:
-              memory: '1024Mi'
-              cpu: '1000m'
+              memory: 500Mi
+              cpu: 250m
           ports:
             - containerPort: 3000
 ---
