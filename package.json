@@ -1,7 +1,7 @@
 {
   "name": "ponyexpress",
   "version": "1.0.0",
-  "description": "",
+  "description": "ponyexpress",
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --no-cache",
