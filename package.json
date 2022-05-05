@@ -1,7 +1,7 @@
 {
   "name": "ponyexpress",
   "version": "1.0.0",
-  "description": "pony express project 3",
+  "description": "pony express project",
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --no-cache",
