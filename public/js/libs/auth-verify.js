@@ -10,5 +10,13 @@
   if (response.status == 401) {
     localStorage.clear('token');
     document.location = '/';
+  } else {
+    let parsedResponse = await response.json();
+    localStorage.setItem('user', parsedResponse.username);
   }
 })();
+
+document.querySelector('.logout').addEventListener('click', () => {
+  localStorage.clear('token');
+  document.location = '/';
+});
