@@ -1,11 +1,10 @@
 name: deploy-manifests
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'infra/**'
+  workflow_run:
+    workflows: ["deploy"]
+    types:
+      - completed
 jobs:
   build:
     runs-on: ubuntu-latest
