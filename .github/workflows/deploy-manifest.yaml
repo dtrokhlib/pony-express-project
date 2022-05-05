@@ -16,6 +16,6 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save pony-express-project
-      - run: kubectl apply -f .
+      - run: kubectl apply -f ./
       
   
