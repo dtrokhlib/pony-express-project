@@ -13,7 +13,7 @@ export const jwtAuth = async (
   if (type !== 'Bearer' || typeof payload !== 'string') {
     return next();
   }
-
+  
   const userPayload = await User.tokenVerify(payload);
   if (!userPayload || !isValidObjectId(userPayload.id)) {
     return next();

@@ -11,7 +11,6 @@ export const permissionCheck = async (
     if (!isValidObjectId(req.params.id)) {
       throw new Error('Not found, Invalid id provided');
     }
-
     const email = await Email.findOne({
       userId: req.currentUser.id,
       email: req.params.id,

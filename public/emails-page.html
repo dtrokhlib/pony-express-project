@@ -1,12 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./css/send-email.css">
 </head>
+
 <body>
-  <h1>Email page</h1>
+
+  <body>
+    <nav class="navMenu">
+      <a href="/main-page.html">Home</a>
+      <a href="/emails-page.html">Email</a>
+      <a href="/chat.html"">Chat</a>
+      <a href="/">Logout </a> <div class="dot"></div>
+    </nav>
+    <div class="wrapper centered">
+      <article class="letter">
+        <div class="side">
+          <h1>Create your message</h1>
+          <p><textarea id="message" placeholder="Message body"></textarea>
+          </p>
+        </div>
+        <div class="side">
+          <p>
+            Subject: <input id="subject" type="text">
+          </p>
+          <p>
+            To: <input id="recipient" type="email">
+          </p>
+          <p>
+            <button id="sendLetter">Create</button>
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <div class="show-my-emails">
+      SHOW MY EMAILS
+    </div>
+
+    <div class="my-emails">
+      <div class="close-my-emails">CLOSE</div>
+      <div class="email-item-list">
+      </div>
+
+    </div>
+    <div class="update-email-container">
+      <article id="update-email" class="letter">
+        <div class="side">
+          <h1>Create your message</h1>
+          <p><textarea id="update-message" placeholder="Message body"></textarea>
+          </p>
+        </div>
+        <div class="side">
+          <p>
+            Subject: <input id="update-subject" type="text">
+          </p>
+          <p>
+            To: <input id="update-recipient" type="email">
+          </p>
+          <p>
+            <button id="updateEmail">Update</button>
+          </p>
+        </div>
+      </article>
+    </div>
+  </body>
 </body>
+<script src="./js/libs/auth-verify.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./js/sweet-alert.js"></script>
+<script src="./js/libs/render-emails.js"></script>
+<script src="./js/emails-page.js"></script>
+
 </html>

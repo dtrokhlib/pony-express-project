@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  overflow: hidden;
+}
+
+body {
+  background: #272727;
+  background-size: cover;
+  background-position: center center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Lato', sans-serif;
+}
+
+.chat-container {
+  background: #ff416c;
+  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  width: 100%;
+  height: 700px;
+  padding: 10px 20px;
+  margin-top: 100px;
+}
+
+.message {
+  background-color: #ffd438;
+  padding: 10px 15px;
+  border-radius: 25px;
+}
+
+.message:hover {
+  background-color: #d09900;
+}
+
+input,
+button {
+  line-height: 1.5rem;
+  border: 0;
+  outline: none;
+  font-family: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input {
+  width: 300px;
+  color: white;
+  background: #ff416c;
+  border-radius: 5px;
+}
+
+::placeholder {
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+.sent-message {
+  padding-top: 15px;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background-color: rgba(78, 94, 114, 0.9);
+  color: white;
+  font-size: 1rem;
+  -webkit-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+button:hover,
+button :focus {
+  outline: none;
+  background-color: rgba(78, 94, 114, 1);
+}
+
+.chat-container {
+  overflow-y: scroll;
+   background-color: #ff416c;;
+}
+.chat-container::-webkit-scrollbar {
+  background-color: #ff416c;;
+	width: 12px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+   background-color: #ff4b2b;;
+	border-radius: 99px;
+	border: 1px solid #fff;
+}

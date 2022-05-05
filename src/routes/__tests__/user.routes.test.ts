@@ -10,7 +10,7 @@ it('Registration validation failed for password field', async () => {
     })
     .expect(400);
 
-  expect(res.body.length).toEqual(1);
+  expect(res.body.message.length).toEqual(1);
 });
 
 it('Registration validation failed for username field', async () => {
@@ -22,7 +22,7 @@ it('Registration validation failed for username field', async () => {
     })
     .expect(400);
 
-  expect(res.body.length).toEqual(1);
+  expect(res.body.message.length).toEqual(1);
 });
 
 it('Registration validation failed for username and password field', async () => {
@@ -34,7 +34,7 @@ it('Registration validation failed for username and password field', async () =>
     })
     .expect(400);
 
-  expect(res.body.length).toEqual(2);
+  expect(res.body.message.length).toEqual(2);
 });
 
 it('Registration has been finished', async () => {
@@ -59,7 +59,7 @@ it('Login validation failed for password field', async () => {
     })
     .expect(400);
 
-  expect(res.body.length).toEqual(1);
+  expect(res.body.message.length).toEqual(1);
 });
 
 it('Login validation failed for username field', async () => {
@@ -71,7 +71,7 @@ it('Login validation failed for username field', async () => {
     })
     .expect(400);
 
-  expect(res.body.length).toEqual(1);
+  expect(res.body.message.length).toEqual(1);
 });
 
 it('Login validation failed for username and password field', async () => {
@@ -83,7 +83,7 @@ it('Login validation failed for username and password field', async () => {
     })
     .expect(400);
 
-  expect(res.body.length).toEqual(2);
+  expect(res.body.message.length).toEqual(2);
 });
 
 it('Login failed, user does not exist', async () => {

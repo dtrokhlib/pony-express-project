@@ -35,7 +35,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: pony-mongo-secrets
-                  key: jwt-secret                                               
+                  key: jwt-secret
+            - name: NODEMAILER_USR
+              valueFrom:
+                secretKeyRef:
+                  name: pony-nodemailer
+                  key: usr
+            - name: NODEMAILER_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: pony-nodemailer
+                  key: pwd                  
           resources:
             limits:
               memory: '1024Mi'

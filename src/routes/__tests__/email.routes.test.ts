@@ -22,7 +22,7 @@ it('CREATE email validation fail', async () => {
     })
     .expect(400);
 
-  expect(res.body.length).toEqual(4);
+  expect(res.body.message.length).toEqual(4);
 });
 
 it('CREATE email has been finished', async () => {
@@ -55,8 +55,11 @@ it('UPDATE which is not exist', async () => {
     .patch('/emails')
     .set('Authorization', `Bearer ${token}`)
     .send({
-      subject: 'testtest',
-      body: 'testtest',
+      from: 'email@tess.com',
+      to: 'email@tess.com',
+      subject: 'testtest2',
+      body: 'testtest2',
+      attachments: [],
     })
     .expect(404);
 });
@@ -69,8 +72,11 @@ it('UPDATE email without permission to perform actions on the email', async () =
     .patch(`/emails/${email.id}`)
     .set('Authorization', `Bearer ${fakeToken}`)
     .send({
-      subject: 'testtest',
-      body: 'testtest',
+      from: email.from,
+      to: email.to,
+      subject: 'testtest2',
+      body: 'testtest2',
+      attachments: email.attachments,
     })
     .expect(403);
 });
@@ -82,13 +88,15 @@ it('UPDATE email has been finished', async () => {
     .patch(`/emails/${email.id}`)
     .set('Authorization', `Bearer ${token}`)
     .send({
-      subject: 'testtest2',
-      body: 'testtest2',
+      from: email.from,
+      to: email.to,
+      subject: 'test test test test test',
+      body: 'test test test test test',
     })
     .expect(200);
 
-  expect(res.body.subject).toEqual('testtest2');
-  expect(res.body.body).toEqual('testtest2');
+  expect(res.body.subject).toEqual('test test test test test');
+  expect(res.body.body).toEqual('test test test test test');
 });
 
 it('DELETE email which is not exist', async () => {
@@ -96,10 +104,7 @@ it('DELETE email which is not exist', async () => {
   const res = await request(app)
     .delete('/emails')
     .set('Authorization', `Bearer ${token}`)
-    .send({
-      subject: 'testtest',
-      body: 'testtest',
-    })
+    .send()
     .expect(404);
 });
 

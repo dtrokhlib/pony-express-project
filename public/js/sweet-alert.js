@@ -17,5 +17,12 @@ const successAlert = async (message) => {
     showConfirmButton: false,
     timer: 1500,
   });
+
+  if (
+    (message == 'Email Deleted' || message == 'Email Updated',
+    message == 'Email Sent')
+  ) {
+    return;
+  }
   document.location = '/emails-page.html';
 };

@@ -5,6 +5,7 @@ import {
   updateEmail,
   getEmailById,
   deleteEmail,
+  sendEmail,
 } from '../controllers/email.controller';
 import { authRequired } from '../middleware/auth-required';
 import { permissionCheck } from '../middleware/permission-check';
@@ -13,7 +14,8 @@ import { emailValidator } from '../validators/email.validator';
 
 const router = Router();
 
-router.get('/', authRequired, permissionCheck, getEmails);
+router.get('/', authRequired, getEmails);
+router.post('/send/:id', authRequired, permissionCheck, sendEmail);
 router.post(
   '/',
   authRequired,
@@ -23,7 +25,13 @@ router.post(
 );
 
 router.get('/:id', authRequired, permissionCheck, getEmailById);
-router.patch('/:id', authRequired, permissionCheck, updateEmail);
+router.patch(
+  '/:id',
+  authRequired,
+  permissionCheck,
+  emailValidator,
+  updateEmail
+);
 router.delete('/:id', authRequired, permissionCheck, deleteEmail);
 
 export { router as emailRouter };
