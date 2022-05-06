@@ -10,7 +10,7 @@ metadata:
     name: ingress-service
 spec:
   rules:
-    - host: pony-express-project.dev
+    - host: www.pony-express-project.xyz
       http:
         paths:
           - pathType: Prefix
