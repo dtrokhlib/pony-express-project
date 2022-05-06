@@ -71,10 +71,9 @@ export const sendEmail = async (req: Request, res: Response) => {
   const email = await Email.findById(emailId);
 
   const result = await sendEmailNodemailer(email!);
-  console.log(result);
-  if (!result) {
+  if (!result?.status) {
     return res.status(400).send({
-      message: result,
+      message: result
     });
   }
 

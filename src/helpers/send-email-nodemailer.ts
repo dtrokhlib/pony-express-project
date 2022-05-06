@@ -18,9 +18,9 @@ export const sendEmailNodemailer = async (emailData: IEmailDocument) => {
     html: emailData.body,
   });
 
-  if(info) return true;
+  if(info) return { status: true };
   } catch(err) {
-    return false
+    return { status: false, err };
   }
 
 }
