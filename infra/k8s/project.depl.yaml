@@ -49,7 +49,7 @@ spec:
           resources:
             limits:
               memory: 500Mi
-              cpu: 250m
+              cpu: '0.1'
           ports:
             - containerPort: 3000
 ---
