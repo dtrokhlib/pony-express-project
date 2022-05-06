@@ -1,17 +1,10 @@
 name: deploy
 
 on:
-<<<<<<< HEAD:.github/workflows/deploy.yaml
   push:
     branches:
       - master
 
-=======
-  workflow_run:
-    workflows: ['test']
-    types:
-      - completed
->>>>>>> 464b3390118db35f1e1ffb34fa4f7c283b2428ec:.github/workflows/deploy.yml
 jobs:
   build:
     runs-on: ubuntu-latest
